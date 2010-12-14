@@ -10,10 +10,8 @@ module Orange
     end
     
     def route?(packet, path)
-      path.gsub(/\/$/, '/index') # replace trailing slash with .*/index
-      parts = path.split('/')
-      parts.shift  # dump empty string
-      matches = Dir.glob("#{File.join(@statics_dir, *parts)}.{haml}")
+      path = path.gsub(/\/$/, '/index') # replace trailing slash with .*/index
+      matches = Dir.glob("#{@statics_dir}#{path}.{haml}")
       if(!matches.empty?)
         packet['route.static_file'] = matches.first
         return true
