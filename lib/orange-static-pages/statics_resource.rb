@@ -14,11 +14,11 @@ module Orange
       parts = path.split('/')
       parts.shift  # dump empty string
       matches = Dir.glob("#{File.join(@statics_dir, *parts)}.{haml}")
-      if(matches)
+      if(!matches.empty?)
         packet['route.static_file'] = matches.first
-        true
+        return true
       else
-        false
+        return false
       end
     end
     
